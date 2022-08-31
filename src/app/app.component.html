@@ -63,7 +63,7 @@
             <button type="button" class="btn btn-light btn-sm w-50">
               <i class="bx bx-user me-1"></i> View
             </button>
-            <button (click)="onOpenModal('update')" type="button" class="btn btn-primary btn-sm w-50">
+            <button (click)="onOpenModal('update', undefined)" type="button" class="btn btn-primary btn-sm w-50">
               <i class="bx bx-pencil me-1"></i> Edit
             </button>
             <button (click)="onOpenModal('delete')" type="button" class="btn btn-danger btn-sm w-50">
@@ -157,7 +157,7 @@
     <div class="modal-content">
       <div class="modal-header">
         <h5 class="modal-title" id="updateEmployeeModalLabel">Add Employee</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+        <button style="border: none; background-color: white;" type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
@@ -186,11 +186,11 @@
               required />
           </div>
           <div class="modal-footer">
-            <button type="button" id="add-employee-form" class="btn btn-secondary" data-dismiss="modal">
-              Close
+            <button type="button" id="update-employee-form" class="btn btn-secondary" data-dismiss="modal">
+              <i class="bx bx-x-circle me-1"></i>Close
             </button>
-            <button type="submit" class="btn btn-primary">
-              Save changes
+            <button (click)="onUpdateEmployee()" [disabled]="addForm.invalid" type="submit" class="btn btn-primary">
+              <i class="bx bx-save me-1"></i>Save changes
             </button>
           </div>
         </form>

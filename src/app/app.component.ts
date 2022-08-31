@@ -11,6 +11,7 @@ import { EmployeeService } from './services/employee.service';
 })
 export class AppComponent implements OnInit{
   public employees?: Employee[];
+  public editEmployee?: Employee;
 
   constructor(private employeeService: EmployeeService){}
 
@@ -42,7 +43,20 @@ export class AppComponent implements OnInit{
     );
   }
 
-  public onOpenModal(mode: string): void {
+  public onUpdateEmployee(employee: Employee): void {
+    document.getElementById('update-employee-form')?.click();
+    this.employeeService.addEmployee(employee).subscribe(
+      (response: Employee) => {
+        console.log(response);
+        this.getEmployees();
+      },
+      (error: HttpErrorResponse) => {
+        alert(error.message);
+      }
+    );
+  }
+
+  public onOpenModal(mode: string, employee: Employee): void {
     const container = document.getElementById("main-container");
     const button = document.createElement('button');
     button.type = 'button';
@@ -52,6 +66,7 @@ export class AppComponent implements OnInit{
       button.setAttribute('data-target', '#addEmployeeModal');
     }
     if (mode === 'update') {
+      this.editEmployee
       button.setAttribute('data-target', '#updateEmployeeModal');
     }
     if (mode === 'delete') {
