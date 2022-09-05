@@ -63,7 +63,7 @@
             <button (click)="onOpenModal('update', employee)" type="button" class="btn btn-primary btn-sm w-50">
               <i class="bx bx-pencil me-1"></i> Edit
             </button>
-            <button (click)="onOpenModal('delete', null)" type="button" class="btn btn-danger btn-sm w-50">
+            <button (click)="onOpenModal('delete', employee)" type="button" class="btn btn-danger btn-sm w-50">
               <i class="bx bx-trash me-1"></i> Delete
             </button>
           </div>
@@ -153,7 +153,7 @@
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="updateEmployeeModalLabel">Add Employee</h5>
+        <h5 class="modal-title" id="updateEmployeeModalLabel">Edit Employee "{{editEmployee?.name}}"</h5>
         <button style="border: none; background-color: white;" type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
@@ -211,13 +211,13 @@
       </div>
       <div class="modal-body">
         <p>
-          Are you sure you want to delete employee?
+          Are you sure you want to delete employee {{deleteEmployee?.name}}?
         </p>
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" data-dismiss="modal">
             No
           </button>
-          <button class="btn btn-danger" data-dismiss="modal" data-dismiss="modal">
+          <button (click)="onDeleteEmployee(deleteEmployee?.id)" class="btn btn-danger" data-dismiss="modal" data-dismiss="modal">
             Yes
           </button>
         </div>
