@@ -36,16 +36,17 @@ export class AppComponent implements OnInit{
       (response: Employee) => {
         console.log(response);
         this.getEmployees();
+        addForm.reset();
       },
       (error: HttpErrorResponse) => {
         alert(error.message);
+        addForm.reset();
       }
     );
   }
 
   public onUpdateEmployee(employee: Employee): void {
-    document.getElementById('update-employee-form')?.click();
-    this.employeeService.addEmployee(employee).subscribe(
+    this.employeeService.updateEmployee(employee).subscribe(
       (response: Employee) => {
         console.log(response);
         this.getEmployees();
@@ -66,7 +67,7 @@ export class AppComponent implements OnInit{
       button.setAttribute('data-target', '#addEmployeeModal');
     }
     if (mode === 'update') {
-      this.editEmployee
+      this.editEmployee = employee;
       button.setAttribute('data-target', '#updateEmployeeModal');
     }
     if (mode === 'delete') {

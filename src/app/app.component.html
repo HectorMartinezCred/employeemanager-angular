@@ -26,7 +26,7 @@
           </ul>
         </div>
         <div>
-          <a (click)="onOpenModal('add')" href="#" data-bs-toggle="modal" data-bs-target=".add-new"
+          <a (click)="onOpenModal('add', null)" href="#" data-bs-toggle="modal" data-bs-target=".add-new"
             class="btn btn-primary"><i class="bx bx-plus me-1"></i> Add New</a>
         </div>
       </div>
@@ -60,13 +60,10 @@
             </p>
           </div>
           <div class="d-flex gap-2 pt-4">
-            <button type="button" class="btn btn-light btn-sm w-50">
-              <i class="bx bx-user me-1"></i> View
-            </button>
-            <button (click)="onOpenModal('update', undefined)" type="button" class="btn btn-primary btn-sm w-50">
+            <button (click)="onOpenModal('update', employee)" type="button" class="btn btn-primary btn-sm w-50">
               <i class="bx bx-pencil me-1"></i> Edit
             </button>
-            <button (click)="onOpenModal('delete')" type="button" class="btn btn-danger btn-sm w-50">
+            <button (click)="onOpenModal('delete', null)" type="button" class="btn btn-danger btn-sm w-50">
               <i class="bx bx-trash me-1"></i> Delete
             </button>
           </div>
@@ -140,7 +137,7 @@
             <button type="button" id="add-employee-form" class="btn btn-secondary" data-dismiss="modal">
               <i class="bx bx-x-circle me-1"></i>Close
             </button>
-            <button [disabled]="addForm.invalid" type="submit" class="btn btn-primary">
+            <button [disabled]="addForm.invalid" type="submit" class="btn btn-primary" data-dismiss="modal">
               <i class="bx bx-save me-1"></i>Save changes
             </button>
           </div>
@@ -162,34 +159,36 @@
         </button>
       </div>
       <div class="modal-body">
-        <form>
+        <form #editForm="ngForm">
           <div class="form-group">
             <label for="name">Name</label>
-            <input type="text" ngModel name="name" class="form-control" id="name" placeholder="Name" required />
+            <input type="text" ngModel="{{editEmployee?.name}}" name="name" class="form-control" id="name" placeholder="Name" required />
           </div>
+          <input type="hidden" ngModel="{{editEmployee?.id}}" name="id" class="form-control" id="id" placeholder="id">
+          <input type="hidden" ngModel="{{editEmployee?.employeeCode}}" name="userCode" class="form-control" id="userCode" placeholder="userCode">
           <div class="form-group">
             <label for="email">Email Address</label>
-            <input type="email" ngModel name="email" class="form-control" id="email" placeholder="Email" required />
+            <input type="email" ngModel="{{editEmployee?.email}}" name="email" class="form-control" id="email" placeholder="Email" required />
           </div>
           <div class="form-group">
-            <label for="phone">Job title</label>
-            <input type="text" ngModel name="jobTitle" class="form-control" id="jobTile" placeholder="Job title"
+            <label for="jobTitle">Job title</label>
+            <input type="text" ngModel="{{editEmployee?.jobTitle}}" name="jobTitle" class="form-control" id="jobTile" placeholder="Job title"
               required />
           </div>
           <div class="form-group">
             <label for="phone">Phone</label>
-            <input type="text" ngModel name="phone" class="form-control" id="phone" placeholder="Phone" required />
+            <input type="text" ngModel="{{editEmployee?.phone}}" name="phone" class="form-control" id="phone" placeholder="Phone" required />
           </div>
           <div class="form-group">
-            <label for="phone">Image URL</label>
-            <input type="text" ngModel name="imageUrl" class="form-control" id="imageUrl" placeholder="Image URL"
+            <label for="imageUrl">Image URL</label>
+            <input type="text" ngModel="{{editEmployee?.imageUrl}}" name="imageUrl" class="form-control" id="imageUrl" placeholder="Image URL"
               required />
           </div>
           <div class="modal-footer">
             <button type="button" id="update-employee-form" class="btn btn-secondary" data-dismiss="modal">
               <i class="bx bx-x-circle me-1"></i>Close
             </button>
-            <button (click)="onUpdateEmployee()" [disabled]="addForm.invalid" type="submit" class="btn btn-primary">
+            <button (click)="onUpdateEmployee(editForm.value)" [disabled]="editForm.invalid"  data-dismiss="modal" type="submit" class="btn btn-primary">
               <i class="bx bx-save me-1"></i>Save changes
             </button>
           </div>
@@ -218,7 +217,7 @@
           <button type="button" class="btn btn-secondary" data-dismiss="modal">
             No
           </button>
-          <button class="btn btn-danger" data-dismiss="modal">
+          <button class="btn btn-danger" data-dismiss="modal" data-dismiss="modal">
             Yes
           </button>
         </div>
